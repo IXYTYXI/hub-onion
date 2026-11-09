@@ -1,0 +1,13 @@
+# Public defaults only. Supply connection details and credentials through environment variables.
+server:
+  port: "8080"
+database:
+  max_connections: 25
+oss:
+  use_path_style: false
+auth:
+  frontend_url: "http://localhost:3000"
+  github:
+    enabled: false
+  feishu:
+    enabled: false

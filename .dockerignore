@@ -1,0 +1,13 @@
+.git
+.tanstack
+.specstory
+node_modules
+coverage
+playwright-report
+test-results
+backend/test
+convex
+.env.local
+.env*.local
+backend/.env*
+!backend/.env*.example

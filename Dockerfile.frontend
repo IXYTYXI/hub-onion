@@ -1,0 +1,27 @@
+ARG BUN_IMAGE=docker.yc345.tv/mirror/oven/bun:1.3.6
+
+FROM ${BUN_IMAGE} AS builder
+WORKDIR /app
+
+ARG FRONTEND_ENV_FILE=.env.test
+ARG FRONTEND_BUILD_SCRIPT=build:test
+
+COPY . .
+RUN bun install --frozen-lockfile
+RUN set -a \
+  && . "./${FRONTEND_ENV_FILE}" \
+  && set +a \
+  && bun run "${FRONTEND_BUILD_SCRIPT}"
+
+FROM ${BUN_IMAGE} AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV BACKEND_URL=http://backend:8080
+
+COPY --from=builder /app/.output ./.output
+
+EXPOSE 3000
+
+CMD ["bun", "run", ".output/server/index.mjs"]

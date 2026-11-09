@@ -1,0 +1,3 @@
+# Public environment skeleton. Supply private settings through environment variables.
+server:
+  port: "8080"

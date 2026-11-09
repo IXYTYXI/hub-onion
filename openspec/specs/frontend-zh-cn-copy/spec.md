@@ -1,0 +1,42 @@
+# frontend-zh-cn-copy Specification
+
+## Purpose
+TBD - created by archiving change localize-frontend-copy-zh-cn. Update Purpose after archive.
+## Requirements
+### Requirement: 主路径文案 SHALL 以 `zh-CN` 呈现
+系统 SHALL 在前端主路径上以中文呈现用户可见的静态文案，而不是继续默认显示英文界面文本。
+
+#### Scenario: 首页与导航使用中文文案
+- **WHEN** 用户访问首页并查看顶部导航
+- **THEN** 首页标题、按钮、说明文案和导航项 SHALL 显示中文
+
+#### Scenario: 技能浏览与详情页使用中文文案
+- **WHEN** 用户浏览技能列表页、技能详情页及其子面板
+- **THEN** 页面标题、筛选项、空状态、加载状态、操作按钮和辅助说明 SHALL 显示中文
+
+#### Scenario: 上传、搜索与登录使用中文文案
+- **WHEN** 用户进入上传、搜索或登录相关页面
+- **THEN** 表单标签、placeholder、状态提示、校验错误和主要按钮 SHALL 显示中文
+
+### Requirement: 前端 SHALL 使用集中定义的文案源
+系统 SHALL 将首批主路径的用户可见文案集中定义在可复用的前端文案模块中，而不是继续将长文本散落硬编码在页面 JSX 中。
+
+#### Scenario: 页面消费集中定义文案
+- **WHEN** 页面需要渲染标题、说明、按钮或空状态文案
+- **THEN** 组件 SHALL 从集中定义的文案模块读取，而不是在 JSX 中内联重复字符串
+
+#### Scenario: 共享术语保持一致
+- **WHEN** 多个页面都需要展示“技能”“上传”“搜索”“登录”“加载中”等共享术语
+- **THEN** 系统 SHALL 通过共享文案定义保持用词一致，避免同义词漂移
+
+### Requirement: 本次中文化 SHALL 不引入语言切换能力
+系统 SHALL 在本次变更中仅提供单一 `zh-CN` 文案集，而不实现语言切换、locale 路由或运行时翻译框架。
+
+#### Scenario: 不提供语言切换入口
+- **WHEN** 用户使用本次交付后的前端页面
+- **THEN** 界面 SHALL 不新增语言切换控件或 locale 参数入口
+
+#### Scenario: 不依赖完整 i18n 框架
+- **WHEN** 开发者实现本次中文化
+- **THEN** 实现 SHALL 采用轻量文案组织方式，而不是要求先接入完整 i18n 依赖与运行时
+
