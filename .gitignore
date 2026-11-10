@@ -38,5 +38,6 @@ backups/
 # Private deployment configuration
 .npmrc
 .env*
+!.env.windows-test
 backend/.env*
 backend/config/*.private.yaml
