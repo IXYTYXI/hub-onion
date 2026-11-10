@@ -34,6 +34,22 @@ if ($LASTEXITCODE -ne 0) { throw 'Docker Compose startup failed.' }
 docker compose -p yclawhubtest --env-file $envFile -f $composeFile ps
 if ($LASTEXITCODE -ne 0) { throw 'Cannot read Docker Compose status.' }
 
+$healthy = $false
+for ($attempt = 0; $attempt -lt 40; $attempt++) {
+    try {
+        $response = Invoke-WebRequest -Uri 'http://localhost:18080/api/v1/health' -UseBasicParsing -TimeoutSec 3
+        if ($response.StatusCode -eq 200) {
+            $healthy = $true
+            break
+        }
+    } catch {
+        Start-Sleep -Seconds 3
+    }
+}
+if (-not $healthy) {
+    throw 'Backend health check did not pass. Inspect: docker compose -p yclawhubtest --env-file deploy/windows-test/.env -f deploy/windows-test/compose.yml logs backend schema-upgrade migrate'
+}
+
 Write-Host 'Frontend: http://localhost:13000'
 Write-Host 'Backend health: http://localhost:18080/api/v1/health'
 Write-Host 'MinIO console: http://localhost:19001'
