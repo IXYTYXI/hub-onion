@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: clawhub
@@ -44,7 +44,7 @@ services:
         condition: service_started
 
   pre-migrate:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     restart: "no"
     environment:
       PGPASSWORD: ${POSTGRES_PASSWORD:?Run setup.ps1 first}
@@ -77,7 +77,7 @@ services:
         condition: service_completed_successfully
 
   schema-upgrade:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     restart: "no"
     entrypoint: ["/bin/sh", "-ec"]
     command: |
