@@ -1,9 +1,10 @@
 # Windows 隔离测试环境
 
-在目标 Windows 机器安装并启动 Docker Desktop（Linux 容器模式），然后将本仓库克隆到 Windows 本地磁盘，在 PowerShell 中执行：
+在目标 Windows 机器安装并启动 Docker Desktop（Linux 容器模式），然后在 PowerShell 中执行：
 
 ```powershell
-cd <仓库目录>
+git clone https://github.com/IXYTYXI/hub-onion.git
+cd hub-onion
 .\deploy\windows-test\setup.ps1
 ```
 
