@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strings"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -31,7 +32,10 @@ type OSSStorageService struct {
 }
 
 func NewOSSStorageService(ossCfg cfg.OSSConfig) (*OSSStorageService, error) {
-	endpoint := "https://" + ossCfg.Endpoint
+	endpoint := ossCfg.Endpoint
+	if !strings.Contains(endpoint, "://") {
+		endpoint = "https://" + endpoint
+	}
 
 	customResolver := aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
 		if service == "S3" {

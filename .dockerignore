@@ -11,3 +11,4 @@ convex
 .env*.local
 backend/.env*
 !backend/.env*.example
+deploy/windows-test/.env

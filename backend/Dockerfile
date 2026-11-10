@@ -31,6 +31,7 @@ ENV PORT=8080
 COPY --from=builder /out/clawhub-server /app/backend/clawhub-server
 COPY --from=builder /out/clawhub-migrate /app/backend/clawhub-migrate
 COPY --from=builder /app/backend/config /app/backend/config
+COPY --from=builder /app/backend/data/yclawhub_base_20260402.sql /app/backend/data/yclawhub_base_20260402.sql
 COPY --from=builder /app/backend/internal/database/migrations /app/backend/internal/database/migrations
 
 # 监听端口由环境变量 PORT 控制（与 config 中 server.port 一致），发布端口请使用 -p 宿主机:PORT
