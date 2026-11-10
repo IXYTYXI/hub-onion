@@ -7,8 +7,9 @@ playwright-report
 test-results
 backend/test
 convex
-.env.local
-.env*.local
+.npmrc
+.env*
+!.env.windows-test
 backend/.env*
 !backend/.env*.example
 deploy/windows-test/.env
