@@ -1,6 +1,6 @@
 # Windows 隔离测试环境
 
-在目标 Windows 机器安装并启动 Docker Desktop（Linux 容器模式），然后在 PowerShell 中执行：
+在目标 Windows 机器安装并启动 Docker Desktop（Linux 容器模式），确保能访问 `docker.m.daocloud.io`、`mirrors.aliyun.com` 和 `goproxy.cn`，然后在 PowerShell 中执行：
 
 ```powershell
 git clone https://github.com/IXYTYXI/hub-onion.git
@@ -9,6 +9,8 @@ cd hub-onion
 ```
 
 脚本首次执行会生成 `deploy/windows-test/.env`，其中是随机测试凭据；该文件不提交到 Git，也不会进入 Docker 构建上下文。后续执行会复用同一组凭据和数据卷。
+
+此 Compose 将镜像固定到 DaoCloud 镜像站，其中对象存储使用 `pgsty/minio:RELEASE.2026-08-04T00-00-00Z`。该镜像包含 MinIO 兼容服务、控制台及 `mc` 客户端；首次拉取和编译可能较慢。镜像站或依赖源不可达时，先检查网络连通性和 Docker Desktop 的代理设置。
 
 服务仅绑定 Windows 本机的回环地址：
 
