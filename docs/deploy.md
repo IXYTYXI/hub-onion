@@ -11,3 +11,5 @@
 端口、状态检查、日志和停止命令见 [Windows 测试环境说明](../deploy/windows-test/README.md)。
 
 `minio-init` 和 `schema-upgrade` 的多行 shell 脚本必须作为 `sh -ec` 的单个参数传入 Compose；普通 `command: |` 会被拆成多个参数，导致初始化任务以 shell 语法错误退出。
+
+数据库基线 SQL 会清空 `search_path`，因此其中的触发器函数调用必须显式写成 `public.update_updated_at_column()`；省略 `public.` 会使首次初始化在创建技能包触发器时失败。
