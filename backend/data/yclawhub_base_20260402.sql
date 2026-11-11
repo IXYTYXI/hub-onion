@@ -715,7 +715,7 @@ CREATE INDEX idx_bundle_category_assignments_category_id
 CREATE TRIGGER update_skill_bundles_updated_at
     BEFORE UPDATE ON public.skill_bundles
     FOR EACH ROW
-    EXECUTE FUNCTION update_updated_at_column();
+    EXECUTE FUNCTION public.update_updated_at_column();
 
 --
 -- PostgreSQL database dump complete
