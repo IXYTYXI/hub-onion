@@ -33,9 +33,10 @@ services:
     image: docker.m.daocloud.io/pgsty/minio:RELEASE.2026-08-04T00-00-00Z
     restart: "no"
     entrypoint: ["/bin/sh", "-ec"]
-    command: |
-      until mc alias set local http://minio:9000 "$$MINIO_ROOT_USER" "$$MINIO_ROOT_PASSWORD"; do sleep 2; done
-      mc mb --ignore-existing local/clawhub-test
+    command:
+      - |
+        until mc alias set local http://minio:9000 "$$MINIO_ROOT_USER" "$$MINIO_ROOT_PASSWORD"; do sleep 2; done
+        mc mb --ignore-existing local/clawhub-test
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:?Run setup.ps1 first}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?Run setup.ps1 first}
@@ -80,10 +81,11 @@ services:
     image: docker.m.daocloud.io/library/postgres:17-alpine
     restart: "no"
     entrypoint: ["/bin/sh", "-ec"]
-    command: |
-      for file in /sql/*/upgrade.sql; do
-        psql -h postgres -U clawhub -d clawhub_test -v ON_ERROR_STOP=1 -f "$$file"
-      done
+    command:
+      - |
+        for file in /sql/*/upgrade.sql; do
+          psql -h postgres -U clawhub -d clawhub_test -v ON_ERROR_STOP=1 -f "$$file"
+        done
     environment:
       PGPASSWORD: ${POSTGRES_PASSWORD:?Run setup.ps1 first}
     volumes:
